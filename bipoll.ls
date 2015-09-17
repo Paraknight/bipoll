@@ -1,23 +1,41 @@
-require! { url, express, 'body-parser', 'html-entities': { XmlEntities } }
+require! { express, 'body-parser' }
 
 app = express!
 
 app.use '/static' express.static 'build'
-
-entities = new XmlEntities!
 
 app.get '/*' (req, res) !-> res.send-file 'build/index.html' root: './'
 
 app.use body-parser.urlencoded extended: false
 
 app.post '/poll/yes' (req, res) !->
-  return unless req.body.title
-  console.log req.body.title
-  res.end!
+  unless req.body.title
+    res.write-head 400
+    res.end!
+    return
+  res.end JSON.stringify do
+    voted: \yes
+    yes: 100
+    no: 20
 
 app.post '/poll/no' (req, res) !->
-  return unless req.body.title
-  console.log req.body.title
-  res.end!
+  unless req.body.title
+    res.write-head 400
+    res.end!
+    return
+  res.end JSON.stringify do
+    voted: \no
+    yes: 100
+    no: 20
+
+app.post '/poll/stats' (req, res) !->
+  unless req.body.title
+    res.write-head 400
+    res.end!
+    return
+  res.end JSON.stringify do
+    voted: \no
+    yes: 100
+    no: 20
 
 app.listen 9980

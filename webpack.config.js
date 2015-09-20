@@ -9,7 +9,9 @@ module.exports = {
 	module: {
 		loaders: [
 			{ test: /\.ls$/, loader: 'livescript' },
-			{ test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' }
+            { test: /\.css$/, loader: "style-loader!css-loader" },
+			{ test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' },
+            { test: /\.svg$/, loader: "url-loader?limit=0" }
 		]
 	},
 	debug: true,

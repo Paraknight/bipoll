@@ -1,13 +1,15 @@
-#require! './clear.styl'
+require! './main.css'
 
 require! { querystring, 'html-entities': { XmlEntities } }
 
 title = window.location.pathname |> (.substr 1) |> decode-URI-component
 
 unless title
-  document.create-element \h1
-    ..text-content = 'Welcome to BiPoll'
+
+  document.create-element \img
+    ..src = require "./logo.svg"
     document.body.append-child ..
+
   document.create-element \p
     ..text-content = 'Plz nav to URL like "bipoll.com/do you agree?".'
     document.body.append-child ..

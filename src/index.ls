@@ -30,12 +30,18 @@ else
     xhr.set-request-header \content-type 'application/x-www-form-urlencoded'
     xhr.send querystring.stringify data
 
+  root.style.height = "100%"
+
+  question-title = document.create-element \div
+    ..class-name = \question-title
+    root.append-child ..
 
   document.create-element \h1
     ..text-content = title |> (+ \?) |> new XmlEntities!.encode
-    root.append-child ..
+    question-title.append-child ..
 
   content = document.create-element \div
+    ..class-name = \buttons
     root.append-child ..
 
 
@@ -46,10 +52,12 @@ else
 
     document.create-element \button
       ..innerText = 'Yes'
+      ..class-name = "vote-button"
       ..onclick = !-> post '/poll/yes' { title } !-> on-reply it
       content.append-child ..
 
     document.create-element \button
       ..innerText = 'No'
+      ..class-name = "vote-button"
       ..onclick = !-> post '/poll/no'  { title } !-> on-reply it
       content.append-child ..

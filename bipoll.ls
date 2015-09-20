@@ -32,10 +32,13 @@ on-db-err = (err, res) ->
     return true
 
 handle-vote = (req, res, vote) !->
+
+  # Handle errors
   unless req.body.title
     res.write-head 400
     res.end!
     return
+
   db.serialize !->
     db.run "INSERT INTO questions VALUES (NULL, ?)" req.body.title
     err, row <-! db.get "SELECT id FROM questions WHERE question = ?" req.body.title
@@ -86,4 +89,4 @@ app.post '/poll/stats' (req, res) !->
         yes: yeses['count(*)']
         no: noes['count(*)']
 
-app.listen 9980
+app.listen (process.env.PORT || 9980)

@@ -28,3 +28,7 @@ node_modules
 
 # SQLite3 database file
 bipoll.db
+
+# "binaries"
+build/*.js
+build/*.js.map

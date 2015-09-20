@@ -1,16 +1,27 @@
-#require! './clear.styl'
+require! './main.css'
 
 require! { querystring, 'html-entities': { XmlEntities } }
 
 title = window.location.pathname |> (.substr 1) |> decode-URI-component
 
+root = document.get-element-by-id \content
+
 unless title
-  document.create-element \h1
-    ..text-content = 'Welcome to BiPoll'
-    document.body.append-child ..
+
+  document.create-element \img
+    ..src = require "./logo.svg"
+    root.append-child ..
+
+  span1 = document.create-element \span
+    ..text-content = "bipoll.com/"
+  span2 = document.create-element \span
+    ..text-content = "Your question here?"
+    ..style.color = "grey"
+
   document.create-element \p
-    ..text-content = 'Plz nav to URL like "bipoll.com/do you agree?".'
-    document.body.append-child ..
+    ..append-child span1
+    ..append-child span2
+    root.append-child ..
 else
   post = (url, data, callback) !->
     xhr = new XMLHttpRequest!
@@ -19,13 +30,19 @@ else
     xhr.set-request-header \content-type 'application/x-www-form-urlencoded'
     xhr.send querystring.stringify data
 
+  root.style.height = "100%"
+
+  question-title = document.create-element \div
+    ..class-name = \question-title
+    root.append-child ..
 
   document.create-element \h1
     ..text-content = title |> (+ \?) |> new XmlEntities!.encode
-    document.body.append-child ..
+    question-title.append-child ..
 
   content = document.create-element \div
-    document.body.append-child ..
+    ..class-name = \buttons
+    root.append-child ..
 
 
   post '/poll/stats' { title } on-reply = (data, vote) !->
@@ -35,10 +52,12 @@ else
 
     document.create-element \button
       ..innerText = 'Yes'
+      ..class-name = "vote-button"
       ..onclick = !-> post '/poll/yes' { title } !-> on-reply it
       content.append-child ..
 
     document.create-element \button
       ..innerText = 'No'
+      ..class-name = "vote-button"
       ..onclick = !-> post '/poll/no'  { title } !-> on-reply it
       content.append-child ..

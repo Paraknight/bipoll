@@ -6,13 +6,15 @@ title = window.location.pathname |> (.substr 1) |> decode-URI-component
 
 unless title
 
+  root = document.get-element-by-id \content
+
   document.create-element \img
     ..src = require "./logo.svg"
-    document.body.append-child ..
+    root.append-child ..
 
   document.create-element \p
     ..text-content = 'Plz nav to URL like "bipoll.com/do you agree?".'
-    document.body.append-child ..
+    root.append-child ..
 else
   post = (url, data, callback) !->
     xhr = new XMLHttpRequest!
@@ -24,10 +26,10 @@ else
 
   document.create-element \h1
     ..text-content = title |> (+ \?) |> new XmlEntities!.encode
-    document.body.append-child ..
+    root.append-child ..
 
   content = document.create-element \div
-    document.body.append-child ..
+    root.append-child ..
 
 
   post '/poll/stats' { title } on-reply = (data, vote) !->

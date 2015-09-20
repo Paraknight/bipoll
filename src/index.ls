@@ -4,9 +4,9 @@ require! { querystring, 'html-entities': { XmlEntities } }
 
 title = window.location.pathname |> (.substr 1) |> decode-URI-component
 
-unless title
+root = document.get-element-by-id \content
 
-  root = document.get-element-by-id \content
+unless title
 
   document.create-element \img
     ..src = require "./logo.svg"

@@ -12,8 +12,15 @@ unless title
     ..src = require "./logo.svg"
     root.append-child ..
 
+  span1 = document.create-element \span
+    ..text-content = "bipoll.com/"
+  span2 = document.create-element \span
+    ..text-content = "Your question here?"
+    ..style.color = "grey"
+
   document.create-element \p
-    ..text-content = 'Plz nav to URL like "bipoll.com/do you agree?".'
+    ..append-child span1
+    ..append-child span2
     root.append-child ..
 else
   post = (url, data, callback) !->

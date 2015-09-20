@@ -86,4 +86,4 @@ app.post '/poll/stats' (req, res) !->
         yes: yeses['count(*)']
         no: noes['count(*)']
 
-app.listen 9980
+app.listen (process.env.PORT || 9980)

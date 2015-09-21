@@ -1,4 +1,4 @@
-require! './main.css'
+require! './main.styl'
 
 require! { querystring, 'html-entities': { XmlEntities } }
 

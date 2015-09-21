@@ -10,7 +10,6 @@ module.exports = {
 		loaders: [
 			{ test: /\.ls$/, loader: 'livescript' },
 			{ test: /\.jade$/, loader: "jade" },
-			{ test: /\.css$/, loader: "style-loader!css-loader" },
 			{ test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' },
 			{ test: /\.svg$/, loader: "url-loader?limit=0" }
 		]

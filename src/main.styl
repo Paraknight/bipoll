@@ -1,44 +1,54 @@
-body
-	background-color #f7f7f7
-	text-align center
-	margin 0
+yes-colour = #7a9460
+no-colour  = #dd7788
 
-div#container
-	position absolute
-	width 100%
+.yes-text
+	color yes-colour
+
+.no-text
+	color no-colour
+
+html, body
+	margin 0
+	height 100%
+	background-color #f7f7f7
+
+h1
+	font-size 3em
+
+#content
 	height 100%
 	display flex
 	flex-direction column
 	justify-content center
 	align-items center
+	text-align center
 
-h1
-	margin 0
-	font-size 3em
-
-#content
+#buttons
 	width 100%
-
-.question-title
-	margin 0
-	height 50%
-
-.buttons
-	margin 0
-	width 100%
-	height 50%
-	margin auto
+	flex 1
 
 .vote-button
 	cursor pointer
 	background none
-	border 1px solid none
+	border none
 	width 50%
 	height 100%
 	font-size 2em
-	color darkgray
 
-.vote-buttohover
-	background #e7e7e7
-	color black
-	height 100%
+	&:hover
+		background #e7e7e7
+
+svg.pie
+	width 65vw
+	max-width 65vh
+	height 65vw
+	max-height 65vh
+	transform rotate(-90deg)
+	background yes-colour
+	border-radius 50%
+
+	circle
+		fill yes-colour
+		stroke no-colour
+		stroke-width 32
+		stroke-dasharray var(--no-percentage) 100

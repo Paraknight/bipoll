@@ -1,3 +1,5 @@
-p Yes: #{yes}
-p No: #{no}
-p You voted: #{voted}
+p You voted #[span(class=voted + '-text') #{voted}]
+p #[span.yes-text Yes &mdash; #{yes}] | #[span.no-text #{no} &mdash; No]
+
+svg.pie(viewBox='0 0 31.830988618 31.830988618')
+	circle(cx='15.915494309', cy='15.915494309', r='15.915494309', style='--no-percentage: '+ 100 * no / (yes + no))

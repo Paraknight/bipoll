@@ -11,7 +11,14 @@ module.exports = {
 		rules: [
 			{ test: /\.ls$/, use: 'livescript-loader' },
 			{ test: /\.jade$/, use: 'jade-loader' },
-			{ test: /\.svg$/, use: 'url-loader?limit=0' },
+			{ test: /\.svg$/, use: [
+				{
+					loader: 'url-loader',
+					options: {
+						limit: 8192
+					}
+				}
+			]},
 			{ test: /\.styl$/, use: [
 				'style-loader',
 				'css-loader',

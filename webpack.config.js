@@ -10,7 +10,7 @@ module.exports = {
 	module: {
 		rules: [
 			{ test: /\.ls$/, use: 'livescript-loader' },
-			{ test: /\.jade$/, use: 'jade-loader' },
+			{ test: /\.pug$/, use: 'pug-loader' },
 			{ test: /\.svg$/, use: [
 				{
 					loader: 'url-loader',

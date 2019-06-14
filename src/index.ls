@@ -7,7 +7,7 @@ title = window.location.pathname |> (.substr 1) |> decode-URI-component
 root = document.get-element-by-id \content
 
 unless title
-  root.inner-HTML = (require './home.jade')!
+  root.inner-HTML = (require './home.pug')!
 else
   post = (url, data, callback) !->
     xhr = new XMLHttpRequest!
@@ -20,14 +20,14 @@ else
 
   html-title = title |> (+ \?) |> new XmlEntities!.encode
 
-  root.inner-HTML = (require './question.jade') title: html-title
+  root.inner-HTML = (require './question.pug') title: html-title
 
   post '/poll/stats' { title } on-reply = (data, vote) !->
     if data.voted?
-      document.get-element-by-id \buttons .inner-HTML = (require './stats.jade') data
+      document.get-element-by-id \buttons .inner-HTML = (require './stats.pug') data
       return
 
     document
-      ..get-element-by-id \buttons .inner-HTML = (require './buttons.jade')!
+      ..get-element-by-id \buttons .inner-HTML = (require './buttons.pug')!
       ..get-element-by-id \yes-button .onclick = !-> post '/poll/yes' { title } !-> on-reply it
       ..get-element-by-id \no-button  .onclick = !-> post '/poll/no'  { title } !-> on-reply it
